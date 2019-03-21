@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 import EmberObject,{get,set} from '@ember/object'
 export default Route.extend({
   //debugger;
-  templateName:'developers/new',
+  templateName:'developers/edit',
   afterModel(model)
   { //declenchement une fois que le model est chargé
 
@@ -16,7 +16,7 @@ export default Route.extend({
     save(model)
     {
       model.setProperties(JSON.parse(JSON.stringify(model.copy)));
-      model.save().then(); //
+      model.save().then(set(model, "copy",{})); //
     }
   }
 
