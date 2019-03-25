@@ -8,6 +8,7 @@ model(){
 actions:{
   save(model){
     let copy=model.copy;
+    
     let dev=this.store.createRecord('developer',EmberObject.create(copy));
     dev.save().then(set(model, "copy",{}));
   }
