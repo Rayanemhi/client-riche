@@ -1,7 +1,6 @@
 
 <br>
 <div class="ui container  one column centered grid">
-{{outlet}}
   <div class="ui two column centered grid four column row">
   {{#link-to "projects.new"}}
   <button class="ui blue basic  button" actions>
@@ -11,6 +10,7 @@
 {{/link-to}}
 
 </div>
+{{outlet}}
 <table class="ui compact blue collapsing table">
   <thead>
     <tr colspan="2">
@@ -18,6 +18,7 @@
       <th>Descriptif</th>
       <th>Start Date</th>
       <th>DueDate</th>
+      <th>Propriétaire</th>
 
     </tr>
   </thead>
@@ -28,21 +29,38 @@
 <tr>
   <td> {{project.name}} </td>
   <td> {{project.description}} </td>
-  <td> {{ utc deserialize  project.startDate }} </td>
-  <td> {{utc deserialize project.dueDate }} </td>
+  <td> {{ moment-format project.startDate 'DD/MM/YYYY' }} </td>
+  <td> {{ moment-format project.dueDate 'DD/MM/YYYY' }} </td>
+  <td> {{project.owner.identity }} </td>
+
 
 
 <td>
-  <!-- {{#link-to "projects" dev class="ui icon circular basic button"}}
+   {{#link-to "projects.edit" project class="ui icon circular basic button"}}
     <i class="ui icon edit"></i>
     {{/link-to}}
-<button {{action "confirmSupp" model dev}} class="ui icon  inverted red circular button">
+<button {{action "confirmSupp" model project}} class="ui icon  inverted red circular button">
   <i class="ui icon delete"></i>
-</button> -->
+</button>
 </td>
 </tr>
   {{/each}}
 
 </tbody>
 </table>
+
+{{#if model.suppr}}
+<div class="ui one column centered grid three column row ">
+Voulez vous supprimer '{{model.projectTmp.name}}' ?
+{{#link-to "projects"}}
+<br><br>
+<button class="ui green button  " {{action "delete" model model.projectTmp}}> <i class="check icon"></i>Confirmer </button>
+{{/link-to}}
+{{#link-to "projects"}}
+<button class="ui  red button"{{action "cancel" model}}> <i class="cancel icon"></i>Annuler </button>
+{{/link-to}}
+</div>
+{{/if}}
+
+
 </div>
