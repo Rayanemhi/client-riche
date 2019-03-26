@@ -10,7 +10,7 @@ model(){
 },
 actions:{
   save(model){
-    let dev=this.store.createRecord('projects',
+    let dev=this.store.createRecord('project',
     EmberObject.create(model.copy,model.devs));
     dev.save();
   }
