@@ -19,6 +19,7 @@
       <th>Start Date</th>
       <th>DueDate</th>
       <th>Propriétaire</th>
+      <th></th>
 
     </tr>
   </thead>
@@ -36,6 +37,9 @@
 
 
 <td>
+  {{#link-to "projects.edit" project class="ui icon circular basic button"}}
+   <i class="ui icon tasks blue"></i>
+   {{/link-to}}
    {{#link-to "projects.edit" project class="ui icon circular basic button"}}
     <i class="ui icon edit"></i>
     {{/link-to}}
