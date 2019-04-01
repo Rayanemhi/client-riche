@@ -1,24 +1,22 @@
 import Route from '@ember/routing/route';
-import EmberObject,{get,set} from '@ember/object'
+import EmberObject, {set} from '@ember/object';
+
 export default Route.extend({
-  //debugger;
   templateName:'projects/edit',
-  afterModel(model)
-  { //declenchement une fois que le model est chargé
-
+  afterModel( model){
     let copy = EmberObject.create(model.toJSON());
-    set(model,'copy',copy);
+    set(model,'copy', copy);
+    let devs = this.store.findAll('developer');
+    set(model,'devs',devs);
     return model;
-
   },
-
   actions:{
-    save(model)
-    {
-      model.setProperties(JSON.parse(JSON.stringify(model.copy)));
-      model.save().then(set(model, "copy",{})); //
+    save(model){
+      if(typeof(model.copy.owner)==="string"){
+        set(model,'copy.owner',model.owner);
+      }
+      model.setProperties(model.copy);
+      model.save().then(this.transitionTo('projects'));
     }
   }
-
-
 });

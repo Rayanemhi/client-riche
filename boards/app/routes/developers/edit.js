@@ -13,12 +13,13 @@ export default Route.extend({
   },
 
   actions:{
-    save(model)
-    {
-      model.setProperties(JSON.parse(JSON.stringify(model.copy)));
-      model.save().then(set(model, "copy",{})); //
+      save(model){
+        if(typeof(model.copy.owner)==="string"){
+          set(model,'copy.owner',model.owner);
+        }
+        model.setProperties(model.copy);
+        model.save().then(this.transitionTo('projects'));
+      }
     }
-  }
-
 
 });
